@@ -48,7 +48,7 @@ constructor(props){
 
         ],
         currentQuestion: 0,
-        showscore:false,
+        showScore:false,
         score:0
 
     }
@@ -63,15 +63,34 @@ clickHandler(isCorrect){
             }
         })
     }
+
+    if (this.state.currentQuestion === 3  ){
+        this.setState({showScore : true})
+
+    }else{
+        this.setState(prevState => {
+            return {
+                    currentQuestion : prevState.currentQuestion +1
+            }
+        })
+    }
+
+    
 }
 
   render() {
     return (
       <div className='app'>
-        {/* <div className='score-section'>You score 2 out of 4</div> */}
         
-        <div className='question-section'>
-            <div className='question-count'> <span>question 1</span>/4</div>
+        {this .state.showScore ? (<div className='score-section'>
+            You score{this.state.score} out of {this.state.questions.length}
+            </div> )
+          : (
+            <div>
+               <div className='question-section'>
+            <div className='question-count'> <span>question {this.state.currentQuestion +1}</span>
+            / {this.state.questions.length}
+            </div>
             <div className='question-text'>
                  {this.state.questions[this.state.currentQuestion].questionText}
             </div>
@@ -88,6 +107,10 @@ clickHandler(isCorrect){
           
         </div>
         
+            </div>
+          )}
+        
+      
       </div>
     )
   }
